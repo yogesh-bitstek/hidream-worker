@@ -6,8 +6,11 @@ WORKDIR /app
 
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
+RUN pip install -U flash-attn --no-build-isolation
+
 
 COPY src/ ./src/
 COPY local_test.py .
 
 CMD ["python3", "-m", "runpod.serverless", "--handler=src.handler.handler"]
+
