@@ -1,1 +1,13 @@
-
+cache/
+models/
+.git
+.gitignore
+README.md
+test_hidream.py
+docker-compose.yml
+*.log
+test_output.png
+docker_output.png
+runpod_output.png
+__pycache__
+.pytest_cache
