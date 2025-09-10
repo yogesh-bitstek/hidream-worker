@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y python3 python3-pip
 
 WORKDIR /app
+RUN pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu124
 
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
@@ -21,4 +22,5 @@ RUN pip install -U flash-attn --no-build-isolation
 
 COPY src/ ./src/
 CMD ["python3", "-u", "src/handler.py"]
+
 
