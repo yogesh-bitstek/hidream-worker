@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  hidream-worker:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - RUNPOD_ENDPOINT_ID=local-test
+      - RUNPOD_POD_ID=local-pod
+      - CUDA_VISIBLE_DEVICES=0
+      - HUGGINGFACE_HUB_CACHE=/app/cache
+    volumes:
+      # Mount cache directory for models
+      - ./cache:/app/cache
+      - ./models:/app/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    
+  # Health check service
+  healthcheck:
+    image: curlimages/curl
+    depends_on:
+      - hidream-worker
+    command: >
+      sh -c "
+        sleep 60 && 
+        curl -f http://hidream-worker:8000/health || exit 1
+      "
