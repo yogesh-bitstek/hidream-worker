@@ -1,9 +1,3 @@
-# Use the extra index URL for PyTorch's CUDA 12.4 builds
---extra-index-url https://download.pytorch.org/whl/cu124
-
-# Pin the versions for PyTorch and Torchvision
-torch==2.5.1
-torchvision==0.20.1
 
 # Other dependencies with version constraints
 diffusers>=0.32.1
@@ -19,5 +13,6 @@ xformers
 runpod~=1.7.12
 websocket-client
 requests
+
 
 
